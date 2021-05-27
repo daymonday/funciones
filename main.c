@@ -1,57 +1,90 @@
-//Se ingresan números enteros comprendidos entre 100 y 2000 (usar función LeerYValidar). Determinar
-//usando la función EstaDentroDelRango:
-
-//a. Cantidad de números ingresados entre 100 y 500
-//b. Cantidad de números pares ingresados entre 500 y 1200
-//c. Promedio de números ingresados entre 1200 y 2000
-//El ingreso de datos finaliza cuando se ingresa un número igual a 99.
-
-//Para realizar este programa se deben realizar las siguientes funciones:
-
-//• EstaDentroDelRango: que reciba 3 enteros correspondientes a un número a validar y los límites
-//superior e inferior del rango. La función debe retornar un 1 si el número a validar se encuentra
-//dentro del rango indicado o un 0 si no lo está.
-
-//• LeerYValidar: que reciba los límites superior e inferior de un rango y retorne un número que se
-//encuentre dentro del mismo. (El ingreso de datos se realiza dentro de la función). Para validar el
-//rango utilizar la función EstaDentroDelRango realizada en el punto anterior.
-
 #include <stdio.h>
 #include <stdlib.h>
-
-int EstaDentrodelRango (int n1, int n2,int num);
-int LeerYValidar (int lim1,int lim2,int valor);
+#define MIN 1
+#define MAX 50
+int resto(int, int );
+int EsPar(int);
+int EsPrimo (int);
+int Promedio(int, int);
 
 int main()
 {
-    int cant1=0,cant2=0,cant3=0,n,suma3=0;
+    int n,par=0,impar=0,suma=0,primos=0;
+    float prom=0.0;
+    n = LeerYValidar(MIN,MAX);
 
-    do
+    while(n!=-10)
     {
-
-        if(LeerYValidar(500,1200,n))
+        if (EsPar(n))
         {
-            cant2+=1;
-        }
-        else if(LeerYValidar(1200,2000,n))
-        {
-
-            cant3+=1;
-            suma3+=suma3;
+            par++;
         }
         else
         {
-            cant1+=1;
+            impar++;
+            suma+=n;
         }
-        printf("\nIngrese un número:\n");
-        scanf("%d",&n);
-        fflush(stdin);
+
+        if(n=(EsPrimo(n)))
+        {
+            primos++;
+
+        }
+        prom=suma/impar;
+        printf("La cantidad de numeros pares es:\n%d",par);
+        printf("La cantidad de numeros primos es:\n%d",primos);
+        printf("El promedio de los numeros impares es:\n%.2f",prom);
+
+
     }
-    while (n!=99);
-    printf("\n La cantidad de numeros entre 100 y 500 que fueron ingresados es:\n %d \n",cant1);
-    printf("\nLa cantidad de numeros entre 500 y 1200 que fueron ingresados es:\n %d\n",cant2);
-    printf("\nEl promedio de los numeros entre 1200 y 2000 que fueron ingresados es:\n %d \n",suma3/cant3);
     return 0;
+}
+
+int resto(int dividendo, int divisor)
+{
+    int resto;
+    resto = dividendo%divisor;
+    return resto;
+}
+
+int EsPar(int num)
+{
+    resto=(resto(num));
+    if(resto==0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int EsPrimo (int num)
+{
+    resto=(resto(num));
+    if(resto!=0||num==2)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int Promedio(int suma, int cont)
+{
+    int prom;
+
+    if(cont>0)
+    {
+        prom=suma/cont;
+    }
+    else
+    {
+        prom=0;
+    }
 }
 
 int EstaDentroDelRango(int numero1, int numero2,int num)
@@ -61,34 +94,31 @@ int EstaDentroDelRango(int numero1, int numero2,int num)
     {
         return 1;
     }
-else
+    else
     {
         return 0;
     }
 }
 
-int LeerYValidar (int lim1,int lim2,int valor)
+int LeerYValidar (int lim1,int lim2)
 {
-
-    printf("Ingrese el limite inferior:\n");
-    scanf("%d",&lim1);
-    fflush(stdin);
-    printf("Ingrese el limite superior:\n");
-    scanf("%d",&lim2);
-    printf("Ingrese un valor:\n");
-    scanf("%d",&valor);
-    if (EstaDentroDelRango(lim1,lim2,valor) == 1)
-    {
-        return valor;
-    }
-
-    else
+    int flagRango=0,valor;
+    do
     {
         printf("Ingrese un valor:\n");
+        fflush(stdin);
         scanf("%d",&valor);
+        flagRango=EstaDentroDelRango(lim1,lim2,valor);
+        if(flagRango==0&&valor==-10)
+        {
+            break;
+        }
+        else if(flagRango==0)
+        {
+            printf("El valor ingresado no es valido\n");
+
+        }
     }
+    while(flagRango==0);
+    return valor;
 }
-
-
-
-
